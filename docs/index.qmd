@@ -1,0 +1,280 @@
+---
+title: "Travel Analysis"
+author: "Thiago Pires"
+date: "`r Sys.Date()`"
+format: html
+execute:
+    echo: true
+    warning: false
+---
+
+## Build query
+
+Set the bounds in the <https://www.openstreetmap.org/>.
+
+## Set an area to analyse
+
+```{r}
+bbox <- list(
+    p1 = list(long = -47.0708, lat = -22.9075),
+    p2 = list(long = -47.0348, lat = -22.8804)
+)
+
+leaflet::leaflet() |> 
+    leaflet::addTiles()|> 
+    leaflet::addRectangles(
+        lng1 = bbox$p1$long, lat1 = bbox$p1$lat,
+        lng2 = bbox$p2$long, lat2 = bbox$p2$lat,
+        fillColor = "transparent"
+    ) |> 
+    leaflet::fitBounds(
+        lng1 = bbox$p1$long, lat1 = bbox$p1$lat,
+        lng2 = bbox$p2$long, lat2 = bbox$p2$lat,
+    )
+```
+
+- References to queries <https://wiki.openstreetmap.org/wiki/Map_Features>.
+- Problems with internet conection use `assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))`
+
+```{r}
+if (!exists("has_internet_via_proxy")) {
+    assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))   
+}
+
+query <- osmdata::opq(bbox =  unlist(bbox)) |> 
+    osmdata::add_osm_feature(key = "highway") |> 
+    osmdata::osmdata_sf()
+```
+
+## Return lines
+
+```{r}
+query_lines <- query$osm_lines
+```
+
+## Visualise the resulting object
+
+```{r}
+query_lines |> 
+    sf::st_geometry() |> 
+    ggplot2::ggplot() +
+    ggplot2::geom_sf(colour = "gray") +
+    ggplot2::theme_minimal()
+```
+
+## Cast polygons to lines
+
+```{r}
+poly_to_lines <- sf::st_cast(query$osm_polygons, "LINESTRING")
+```
+
+## Bind all lines together
+
+```{r}
+query_lines <- dplyr::bind_rows(query_lines, poly_to_lines)
+
+query_lines |> 
+    sf::st_geometry() |> 
+    ggplot2::ggplot() +
+    ggplot2::geom_sf(colour = "gray") +
+    ggplot2::theme_minimal()
+```
+
+## Convert to sfnetwork object
+
+```{r}
+highway_net <- sfnetworks::as_sfnetwork(query_lines, directed = FALSE)
+```
+
+### Plot
+
+```{r}
+ggplot2::ggplot() +
+    ggplot2::geom_sf(data = sf::st_as_sf(highway_net, "edges"), col = "gray") +
+    ggplot2::geom_sf(data = sf::st_as_sf(highway_net, "nodes"), col = "gray") +
+    ggplot2::theme_minimal()
+```
+
+## Remove nodes that have only two edges connected
+
+```{r}
+highway_simple <- tidygraph::convert(highway_net, sfnetworks::to_spatial_smooth)
+```
+
+### Plot
+
+```{r}
+ggplot2::ggplot() +
+    ggplot2::geom_sf(data = sf::st_as_sf(highway_simple, "edges"), col = "gray") +
+    ggplot2::geom_sf(data = sf::st_as_sf(highway_simple, "nodes"), col = "gray") +
+    ggplot2::theme_minimal()
+```
+## Calculating shortest paths
+
+### Filter connected components
+
+Our network consists of several unconnected components
+
+```{r}
+tidygraph::with_graph(highway_simple, tidygraph::graph_component_count())
+```
+
+```{r}
+connected_net = highway_simple |> 
+    tidygraph::activate("nodes") |> 
+    dplyr::filter(tidygraph::group_components() == 1)
+```
+
+### Weights
+
+```{r}
+connected_net <- 
+    connected_net |> 
+    tidygraph::activate("edges") |> 
+    dplyr::mutate(weight = sfnetworks::edge_length())
+```
+
+### Plot
+
+```{r}
+ggplot2::ggplot() +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "edges"), col = "gray") +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "nodes"), col = "gray") +
+    ggplot2::theme_minimal()
+```
+
+### Find shortest paths
+
+```{r}
+paths <- sfnetworks::st_network_paths(connected_net, from = 1, to = 600, weights = "weight")
+```
+
+### Plot
+
+```{r}
+node_paths <- 
+    connected_net |> 
+    tidygraph::activate("nodes") |> 
+    dplyr::slice(
+        paths |> dplyr::pull(node_paths) |> unlist()
+    )
+
+edge_paths <- 
+    connected_net |> 
+    tidygraph::activate("edges") |> 
+    dplyr::slice(
+        paths |> dplyr::pull(edge_paths) |> unlist()
+    )
+
+node_labels <- 
+    connected_net |> 
+    tidygraph::activate("nodes") |> 
+    dplyr::slice(
+        paths |> dplyr::pull(node_paths) |> unlist() |> range()
+    )
+
+ggplot2::ggplot() +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "edges"), col = "gray") +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "nodes"), col = "gray") +
+    ggplot2::theme_minimal() +
+    ggplot2::geom_sf(data = sf::st_as_sf(node_paths, "nodes"), col = "orange") +
+    ggplot2::geom_sf(data = sf::st_as_sf(node_paths, "edges"), col = "orange") +
+    ggplot2::geom_sf_label(data = sf::st_as_sf(node_labels, "nodes"), 
+                           ggplot2::aes(label = c("Start", "End")), 
+                           nudge_x = 0.005) +
+    ggplot2::labs(x = "", y = "")
+```
+
+## Route optimization
+
+```{r}
+set.seed(403)
+rdm = connected_net |> 
+    sf::st_bbox() |> 
+    sf::st_as_sfc() |> 
+    sf::st_sample(4, type = "random")
+```
+
+### Compute cost matrix
+
+```{r}
+net <- tidygraph::activate(connected_net, "nodes")
+cost_matrix <- sfnetworks::st_network_cost(net, 
+                                           from = rdm, 
+                                           to = rdm, 
+                                           weights = "weight")
+
+# Use nearest node indices as row and column names.
+rdm_idxs <- sf::st_nearest_feature(rdm, net)
+row.names(cost_matrix) <- rdm_idxs
+colnames(cost_matrix) <- rdm_idxs
+
+round(cost_matrix, 0)
+```
+
+### Find the route
+
+```{r}
+tour <- TSP::solve_TSP(TSP::TSP(units::drop_units(cost_matrix)))
+tour_idxs <- as.numeric(names(tour))
+tour_idxs
+
+# Approximate length of the route.
+# In meters, since that was the unit of our cost values.
+round(TSP::tour_length(tour), 0)
+```
+
+### Computing the shortest paths between each location
+
+```{r}
+# Define the nodes to calculate the shortest paths from.
+# Define the nodes to calculate the shortest paths to.
+# All based on the calculated order of visit.
+from_idxs <- tour_idxs
+to_idxs <- c(tour_idxs[2:length(tour_idxs)], tour_idxs[1])
+
+# Calculate the specified paths.
+tsp_paths <- mapply(sfnetworks::st_network_paths,
+                    from = from_idxs,
+                    to = to_idxs,
+                    MoreArgs = list(x = connected_net, weights = "weight")
+)
+
+# Plot the results
+tsp_paths_fun <- function(x, index) {
+    
+    tsp_edge_paths <- connected_net |> 
+        tidygraph::activate("edges") |> 
+        dplyr::slice(tsp_paths[, index]$edge_paths |> unlist())
+    
+    ggplot2::geom_sf(data = sf::st_as_sf(tsp_edge_paths, "edges"), 
+                     ggplot2::aes(col = "Optimal route"), lwd = 1.3)
+    
+}
+
+p <- ggplot2::ggplot() +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "edges"), col = "gray") +
+    ggplot2::geom_sf(data = sf::st_as_sf(connected_net, "nodes"), col = "gray") +
+    ggplot2::theme_minimal()
+
+for (i in 1:3) {
+    p <- p + tsp_paths_fun(tsp_paths, i)
+}
+
+tsp_labels <- 
+    connected_net |> 
+    tidygraph::activate("nodes") |> 
+    dplyr::slice(
+        paths |> dplyr::pull(node_paths) |> unlist() |> range()
+    )
+
+p + ggplot2::geom_sf(data = sf::st_as_sf(rdm, "nodes"), 
+                     ggplot2::aes(col = "Visits"))+
+    ggplot2::geom_sf_label(data = sf::st_as_sf(rdm, "nodes"), 
+                           ggplot2::aes(label = 1:4), 
+                           nudge_x = 0.005) +
+    ggplot2::labs(x = "", y = "", colour = "") +
+    ggplot2::scale_color_manual(values = c("orange", "blue"))
+
+```
+
