@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thiago Pires">
-<meta name="dcterms.date" content="2022-08-30">
+<meta name="dcterms.date" content="2022-09-09">
 
 <title>Travel Analysis</title>
 <style>
@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2022-08-30</p>
+      <p class="date">2022-09-09</p>
     </div>
   </div>
     
@@ -165,8 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">lng2 =</span> bbox<span class="sc">$</span>p2<span class="sc">$</span>long, <span class="at">lat2 =</span> bbox<span class="sc">$</span>p2<span class="sc">$</span>lat,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="htmlwidget-6b000562b8e09614e727" style="width:100%;height:464px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b000562b8e09614e727">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[-22.9075,-47.0708,-22.8804,-47.0348,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"transparent","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-22.9075,-22.8804],"lng":[-47.0708,-47.0348]},"fitBounds":[-22.9075,-47.0708,-22.8804,-47.0348,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-313042f7f3e413a7cc0c" style="width:100%;height:464px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-313042f7f3e413a7cc0c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[-22.9075,-47.0708,-22.8804,-47.0348,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"transparent","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-22.9075,-22.8804],"lng":[-47.0708,-47.0348]},"fitBounds":[-22.9075,-47.0708,-22.8804,-47.0348,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -347,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="route-optimization">Route optimization</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">403</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rdm <span class="ot">=</span> connected_net <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rdm <span class="ot">&lt;-</span> connected_net <span class="sc">|&gt;</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_bbox</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_sample</span>(<span class="dv">4</span>, <span class="at">type =</span> <span class="st">"random"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -356,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="compute-cost-matrix">Compute cost matrix</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> tidygraph<span class="sc">::</span><span class="fu">activate</span>(connected_net, <span class="st">"nodes"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cost_matrix <span class="ot">&lt;-</span> sfnetworks<span class="sc">::</span><span class="fu">st_network_cost</span>(connected_net, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cost_matrix <span class="ot">&lt;-</span> sfnetworks<span class="sc">::</span><span class="fu">st_network_cost</span>(net, </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">from =</span> rdm, </span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">to =</span> rdm, </span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">weights =</span> <span class="st">"weight"</span>)</span>
@@ -417,8 +417,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        tidygraph<span class="sc">::</span><span class="fu">activate</span>(<span class="st">"edges"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">slice</span>(tsp_paths[, index]<span class="sc">$</span>edge_paths <span class="sc">|&gt;</span> <span class="fu">unlist</span>())</span>
 <span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(tsp_edge_paths, <span class="st">"edges"</span>), </span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                         ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Optimal route"</span>), <span class="at">lwd =</span> <span class="fl">1.3</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(tsp_edge_paths, <span class="st">"edges"</span>), </span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Optimal route"</span>), <span class="at">lwd =</span> <span class="fl">1.3</span>)</span>
 <span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
@@ -448,6 +448,304 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+</section>
+</section>
+<section id="using-or-tools-from-google" class="level2">
+<h2 class="anchored" data-anchor-id="using-or-tools-from-google">Using OR Tools from google</h2>
+<section id="traveling-salesperson-problem" class="level3">
+<h3 class="anchored" data-anchor-id="traveling-salesperson-problem">Traveling Salesperson Problem</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="st">"../venv"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>constraint_solver <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"ortools.constraint_solver"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(cost_matrix) <span class="ot">&lt;-</span> <span class="st">"integer"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>create_data_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">dict</span>()</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'distance_matrix'</span>] <span class="ot">&lt;-</span> cost_matrix</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'distance_matrix'</span>] <span class="ot">&lt;-</span>  data[<span class="st">'distance_matrix'</span>]<span class="sc">$</span><span class="fu">tolist</span>()</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'num_vehicles'</span>] <span class="ot">&lt;-</span> 1L</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'depot'</span>] <span class="ot">&lt;-</span> 0L</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the routing model</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">create_data_model</span>()</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>manager <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">RoutingIndexManager</span>(</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(data[<span class="st">'distance_matrix'</span>]),</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'num_vehicles'</span>],</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'depot'</span>]</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>routing <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">RoutingModel</span>(manager)</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the distance callback</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>distance_callback <span class="ot">&lt;-</span> <span class="cf">function</span>(from_index, to_index) {</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    from_node <span class="ot">&lt;-</span> manager<span class="sc">$</span><span class="fu">IndexToNode</span>(from_index)</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    to_node <span class="ot">&lt;-</span> manager<span class="sc">$</span><span class="fu">IndexToNode</span>(to_index)</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data[<span class="st">'distance_matrix'</span>][from_node][to_node])</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>transit_callback_index <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">RegisterTransitCallback</span>(distance_callback)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the cost of travel</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>routing<span class="sc">$</span><span class="fu">SetArcCostEvaluatorOfAllVehicles</span>(transit_callback_index)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Set search parameters</span></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>search_parameters <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">DefaultRoutingSearchParameters</span>()</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>search_parameters<span class="sc">$</span>first_solution_strategy <span class="ot">=</span> (</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>    constraint_solver<span class="sc">$</span>routing_enums_pb2<span class="sc">$</span>FirstSolutionStrategy<span class="sc">$</span>PATH_CHEAPEST_ARC)</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>solution <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">SolveWithParameters</span>(search_parameters)</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Save routes to a list or array</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>get_routes <span class="ot">&lt;-</span> <span class="cf">function</span>(solution, routing, manager) {</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>    routes <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (route_nbr <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">0</span>, routing<span class="sc">$</span><span class="fu">vehicles</span>() <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>        index <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">Start</span>(route_nbr)</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>        route <span class="ot">&lt;-</span> <span class="fu">c</span>(manager<span class="sc">$</span><span class="fu">IndexToNode</span>(index))</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span>(<span class="sc">!</span>routing<span class="sc">$</span><span class="fu">IsEnd</span>(index)) {</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>            index <span class="ot">&lt;-</span> solution<span class="sc">$</span><span class="fu">Value</span>(routing<span class="sc">$</span><span class="fu">NextVar</span>(index))</span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>            route <span class="ot">&lt;-</span> <span class="fu">append</span>(route, manager<span class="sc">$</span><span class="fu">IndexToNode</span>(index))</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a>        routes[[route_nbr <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> route</span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a>        <span class="fu">names</span>(routes)[route_nbr <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> route_nbr</span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(routes)</span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a>(routes <span class="ot">&lt;-</span> <span class="fu">get_routes</span>(solution, routing, manager))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`0`
+[1] 0 1 3 2 0</code></pre>
+</div>
+</div>
+</section>
+<section id="vehicle-routing-problem" class="level3">
+<h3 class="anchored" data-anchor-id="vehicle-routing-problem">Vehicle Routing Problem</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">711</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>index_visits <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">603</span>, <span class="dv">9</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>visits <span class="ot">&lt;-</span> connected_net <span class="sc">|&gt;</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    tidygraph<span class="sc">::</span><span class="fu">activate</span>(<span class="st">"nodes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">slice</span>(index_visits)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>depot <span class="ot">&lt;-</span> connected_net <span class="sc">|&gt;</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    tidygraph<span class="sc">::</span><span class="fu">activate</span>(<span class="st">"nodes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">23</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(connected_net, <span class="st">"edges"</span>), <span class="at">col =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(connected_net, <span class="st">"nodes"</span>), <span class="at">col =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(visits, <span class="st">"nodes"</span>), </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Visits"</span>)) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(depot, <span class="st">"nodes"</span>), </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Depot"</span>)) <span class="sc">+</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>, <span class="at">colour =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Visits"</span> <span class="ot">=</span> <span class="st">"blue"</span>, </span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Depot"</span> <span class="ot">=</span> <span class="st">"orange"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="compute-cost-matrix-1" class="level4">
+<h4 class="anchored" data-anchor-id="compute-cost-matrix-1">Compute cost matrix</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cost_matrix_route_problem <span class="ot">&lt;-</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    sfnetworks<span class="sc">::</span><span class="fu">st_network_cost</span>(connected_net, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">from =</span> <span class="fu">c</span>(<span class="dv">23</span>, index_visits), </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">23</span>, index_visits), </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">weights =</span> <span class="st">"weight"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(cost_matrix_route_problem) <span class="ot">&lt;-</span> <span class="st">"integer"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solution" class="level4">
+<h4 class="anchored" data-anchor-id="solution">Solution</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>create_data_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">dict</span>()</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'distance_matrix'</span>] <span class="ot">&lt;-</span> cost_matrix_route_problem</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'distance_matrix'</span>] <span class="ot">&lt;-</span>  data[<span class="st">'distance_matrix'</span>]<span class="sc">$</span><span class="fu">tolist</span>()</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'num_vehicles'</span>] <span class="ot">&lt;-</span> 3L</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'depot'</span>] <span class="ot">&lt;-</span> 0L</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the routing model</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">create_data_model</span>()</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>manager <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">RoutingIndexManager</span>(</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(data[<span class="st">'distance_matrix'</span>]),</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'num_vehicles'</span>],</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'depot'</span>]</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>routing <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">RoutingModel</span>(manager)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the distance callback</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>distance_callback <span class="ot">&lt;-</span> <span class="cf">function</span>(from_index, to_index) {</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    from_node <span class="ot">&lt;-</span> manager<span class="sc">$</span><span class="fu">IndexToNode</span>(from_index)</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    to_node <span class="ot">&lt;-</span> manager<span class="sc">$</span><span class="fu">IndexToNode</span>(to_index)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data[<span class="st">'distance_matrix'</span>][from_node][to_node])</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>transit_callback_index <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">RegisterTransitCallback</span>(distance_callback)</span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the cost of travel</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>routing<span class="sc">$</span><span class="fu">SetArcCostEvaluatorOfAllVehicles</span>(transit_callback_index)</span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a distance dimension</span></span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>dimension_name <span class="ot">&lt;-</span> <span class="st">'Distance'</span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>routing<span class="sc">$</span><span class="fu">AddDimension</span>(</span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>    transit_callback_index,</span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>    0L,  <span class="co"># no slack</span></span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>    15000L,  <span class="co"># vehicle maximum travel distance</span></span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,  <span class="co"># start cumul to zero</span></span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>    dimension_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>distance_dimension <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">GetDimensionOrDie</span>(dimension_name)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>distance_dimension<span class="sc">$</span><span class="fu">SetGlobalSpanCostCoefficient</span>(100L)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set search parameters</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>search_parameters <span class="ot">&lt;-</span> constraint_solver<span class="sc">$</span>pywrapcp<span class="sc">$</span><span class="fu">DefaultRoutingSearchParameters</span>()</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>search_parameters<span class="sc">$</span>first_solution_strategy <span class="ot">=</span> (</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    constraint_solver<span class="sc">$</span>routing_enums_pb2<span class="sc">$</span>FirstSolutionStrategy<span class="sc">$</span>PATH_CHEAPEST_ARC)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>solution <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">SolveWithParameters</span>(search_parameters)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Save routes to a list or array</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>get_routes <span class="ot">&lt;-</span> <span class="cf">function</span>(solution, routing, manager) {</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    routes <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (route_nbr <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">0</span>, routing<span class="sc">$</span><span class="fu">vehicles</span>() <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>        index <span class="ot">&lt;-</span> routing<span class="sc">$</span><span class="fu">Start</span>(route_nbr)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>        route <span class="ot">&lt;-</span> <span class="fu">c</span>(manager<span class="sc">$</span><span class="fu">IndexToNode</span>(index))</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span>(<span class="sc">!</span>routing<span class="sc">$</span><span class="fu">IsEnd</span>(index)) {</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>            index <span class="ot">&lt;-</span> solution<span class="sc">$</span><span class="fu">Value</span>(routing<span class="sc">$</span><span class="fu">NextVar</span>(index))</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>            route <span class="ot">&lt;-</span> <span class="fu">append</span>(route, manager<span class="sc">$</span><span class="fu">IndexToNode</span>(index))</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>        routes[[route_nbr <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> route</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">names</span>(routes)[route_nbr <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> route_nbr</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(routes)</span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>(routes <span class="ot">&lt;-</span> <span class="fu">get_routes</span>(solution, routing, manager))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`0`
+[1] 0 6 9 0
+
+$`1`
+[1] 0 3 2 5 0
+
+$`2`
+[1] 0 7 1 8 4 0</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-the-specified-paths." class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-specified-paths.">Calculate the specified paths.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>real_routes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(routes, \(x) <span class="fu">c</span>(<span class="dv">23</span>, index_visits)[x <span class="sc">+</span> <span class="dv">1</span>])</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>vrp_paths <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(x))) {</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        from_idxs <span class="ot">&lt;-</span> <span class="fu">unique</span>(x[[i]])</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        to_idxs <span class="ot">&lt;-</span> <span class="fu">c</span>(from_idxs[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(from_idxs)], from_idxs[<span class="dv">1</span>])</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>        paths <span class="ot">&lt;-</span> <span class="fu">mapply</span>(sfnetworks<span class="sc">::</span>st_network_paths,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">from =</span> from_idxs,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">to =</span> to_idxs,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">MoreArgs =</span> <span class="fu">list</span>(<span class="at">x =</span> connected_net, <span class="at">weights =</span> <span class="st">"weight"</span>))    </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>        results[[i]] <span class="ot">&lt;-</span> paths</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(results)</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plot-the-results" class="level4">
+<h4 class="anchored" data-anchor-id="plot-the-results">Plot the results</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>vrp_paths_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x, index, vehicle) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    vrp_edge_paths <span class="ot">&lt;-</span> connected_net <span class="sc">|&gt;</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        tidygraph<span class="sc">::</span><span class="fu">activate</span>(<span class="st">"edges"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="fu">vrp_paths</span>(x)[[vehicle]][, index]<span class="sc">$</span>edge_paths <span class="sc">|&gt;</span> <span class="fu">unlist</span>())</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(vrp_edge_paths, <span class="st">"edges"</span>),</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="fu">as.character</span>(vehicle)), <span class="at">lwd =</span> <span class="fl">1.3</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(connected_net, <span class="st">"edges"</span>), <span class="at">col =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(connected_net, <span class="st">"nodes"</span>), <span class="at">col =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(real_routes))) {</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(real_routes[[j]]) <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">vrp_paths_fun</span>(real_routes, i, j)   </span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(visits, <span class="st">"nodes"</span>), </span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Visits"</span>)) <span class="sc">+</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_sf</span>(<span class="at">data =</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(depot, <span class="st">"nodes"</span>), </span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>                     ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"Depot"</span>)) <span class="sc">+</span></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>, <span class="at">colour =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="analyse-with-partial-routes-time-windows-and-start-point" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-with-partial-routes-time-windows-and-start-point">Analyse with partial routes, time windows and start point</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reticulate::source_python()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

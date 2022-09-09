@@ -1,0 +1,14 @@
+---
+title: "OR Tools"
+author: "Thiago Pires"
+format: html
+jupyter: python3
+---
+
+### TSP Problem
+
+```{python}
+G = ox.graph_from_bbox(-22.9075, -22.8804, -47.0708, -47.0348, network_type='drive')
+G_projected = ox.project_graph(G)
+ox.plot_graph(G_projected, node_color='white', edge_color='white', bgcolor='gray')
+```
